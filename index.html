@@ -105,22 +105,23 @@
 </div>
 
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
 <script>
     document.getElementById('applicationForm').addEventListener('submit', function(event) {
         event.preventDefault();
-        
+
         const formData = new FormData(this);
-        const entries = {};
+        let emailBody = '';
+
         formData.forEach((value, key) => {
-            entries[key] = value;
+            emailBody += `${key.charAt(0).toUpperCase() + key.slice(1)}: ${value}\n`;
         });
-        
-        // Send form data via email (Replace with backend processing if needed)
-        const mailtoLink = `mailto:hr@mail.abajoo.co.id?subject=Odoo Developer Application&body=${JSON.stringify(entries, null, 2)}`;
+
+        // Send form data in a readable format via email
+        const mailtoLink = `mailto:hr@mail.abajoo.co.id?subject=Odoo Developer Application&body=${encodeURIComponent(emailBody)}`;
         window.location.href = mailtoLink;
     });
 </script>
+
 
 </body>
 </html>
